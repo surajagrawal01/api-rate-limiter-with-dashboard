@@ -1,0 +1,52 @@
+generator client {
+ provider = "prisma-client-js"
+}
+
+datasource db {
+ provider = "postgresql"
+ url      = process.env.DATABASE_URL
+}
+
+model User {
+ id        Int       @id @default(autoincrement())
+ email     String    @unique
+ name      String?
+ api_key   Text      @unique
+ createdAt DateTime  @default(now()) @map("created_at")
+ updatedAt DateTime  @updatedAt @map("updated_at")
+ planId    PLAN.     @map("plan_id")
+ @@map("users")
+}
+
+model Plan {
+ id        Int       @id @default(autoincrement())
+ name      String
+ limit     Int
+ window_seconds Int
+ createdAt DateTime  @default(now()) @map("created_at")
+ updatedAt DateTime  @updatedAt @map("updated_at")
+
+ @@map("plans")
+}
+
+model Usage {
+ id        Int      @id @default(autoincrement())
+ userId    Int      @map("user_id")
+ createdAt DateTime @default(now()) @map("created_at")
+ updatedAt DateTime @updatedAt @map("updated_at")
+ user    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+ window_start DateTime  @default(now())
+ window_end DateTime 
+ used       Int
+ @@map("usages")
+}
+
+model Log{
+ id     Int      @id @default(autoincrement())
+ userId Int     @map("user_id")
+ user    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+ endPoint String   
+ timestamp DateTime  @default(now())
+ status  String
+ @@map("logs)
+}
