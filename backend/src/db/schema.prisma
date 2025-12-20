@@ -47,6 +47,8 @@ model Log{
  user    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
  endPoint String   
  timestamp DateTime  @default(now())
- status  String
+ method String
+ status String
+ description    String
  @@map("logs)
 }
