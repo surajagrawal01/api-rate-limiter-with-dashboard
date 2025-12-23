@@ -36,7 +36,7 @@ model Usage {
  updatedAt DateTime @updatedAt @map("updated_at")
  user    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
  window_start DateTime  @default(now())
- window_end DateTime 
+ window_end DateTime?
  used       Int
  @@map("usages")
 }
