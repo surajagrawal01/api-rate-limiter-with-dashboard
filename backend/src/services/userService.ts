@@ -3,7 +3,6 @@ import { prisma } from "../db/client";
 type UserCreateInput = {
     email: string,
     name: string,
-    api_key: string,
     planId: number
 }
 

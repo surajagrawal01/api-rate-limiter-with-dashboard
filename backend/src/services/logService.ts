@@ -22,7 +22,7 @@ export const insertLog = async (logData: LogData) => {
     }
 }
 
-export const fetchLogs = async (userId: number) => {
+export const fetchUserLogs = async (userId: number) => {
     try {
         const logs = await prisma.log.findMany({
             where: {
