@@ -1,5 +1,31 @@
 import { DateTimeTypeDefinition } from 'graphql-scalars'
 
+/*
+
+    //-->In type Usage userId is defined so we can't access user (in order to access user row we need to define here and then in the resolver)
+    type Usage {
+        id:Int! 
+        userId:Int!
+        used:Int!
+        createdAt:DateTime!
+        updatedAt:DateTime!
+        window_start:DateTime!
+        window_end:DateTime!
+    }
+
+    //---> Here we have defined user so we can populate means we can get the information of user like id, name, email, api_key etc.
+    //---> (we also defined User for Log in resolver in order to get user info along with Logs)
+    type Log{
+        id:Int!
+        endPoint:String!
+        status:String!
+        method:String!
+        description:String!
+        user:User!
+        timestamp:DateTime!
+    }
+
+*/
 export const typeDefs = `
     ${DateTimeTypeDefinition}
 
@@ -46,10 +72,10 @@ export const typeDefs = `
 
     type Query {
         getUsers: [User!]!
-        getUserById(id: Int!): User
+        getUserById(id: Int!): User!
         getPlans: [Plan!]!
-        getUsage(id:Int!):Usage
-        getLogs:[Log!]!
+        getUsage(id:Int!):Usage!
+        getLogs(id:Int!):[Log!]!
     }
 
     input CreateUserInput {
