@@ -52,4 +52,13 @@ export const resolvers = {
         usages: (parent: { id: number }) =>
             prisma.usage.findMany({ where: { userId: parent.id } }),
     },
+    Log: {
+        //here the user comes from the Log -> so it can access parent means Log rows, and the args -> argument passed during query
+        user: async (parent: any, args: { id: number }) => {
+            // console.log({ parent }) //Here the parents are entire data getLogs query -> (array of Logs)-> 
+            // Because there only we are trying to access info of User, as defined in typeDefs
+            return findUserById({ id: args?.id })
+        }
+
+    }
 }
