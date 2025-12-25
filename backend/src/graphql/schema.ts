@@ -29,6 +29,16 @@ import { DateTimeTypeDefinition } from 'graphql-scalars'
 export const typeDefs = `
     ${DateTimeTypeDefinition}
 
+    type Plan {
+        id:Int!
+        name:String!
+        window_second:Int!
+        createdAt:DateTime!
+        updatedAt:DateTime!
+        limit:Int!
+
+    }
+
     type Usage {
         id:Int!
         userId:Int!
@@ -65,7 +75,7 @@ export const typeDefs = `
         id:Int!
         name:String!
         limit:Int!
-        window_seconds:Int!
+        window_seconds:Int
         createdAt:DateTime!
         updatedAt:DateTime!
     }
@@ -84,9 +94,16 @@ export const typeDefs = `
         planId: Int!
     }   
 
+    input CreatePlanInput {
+        name: String!
+        limit: Int!
+        window_seconds: Int
+    } 
+
     type Mutation{
         createUser(input:CreateUserInput!):User!
         resetUsage(id:Int!):Usage!
         rotateUserAPIKey(id:Int!):User!
+        createPlan(input:CreatePlanInput!):Plan!
     }
 `
