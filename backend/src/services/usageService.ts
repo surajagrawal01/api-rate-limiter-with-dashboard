@@ -60,7 +60,7 @@ export const increaseUsageForUser = async (userId: number) => {
 
 export const resetUsageForUser = async (userId: number) => {
     try {
-        const usage = await prisma.usage.updateMany({
+        const usage = await prisma.usage.update({
             where: {
                 userId: userId
             },

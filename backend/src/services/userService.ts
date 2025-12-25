@@ -50,14 +50,16 @@ export const findUserById = async ({ id }: { id: number }) => {
 
 export const createUser = async (userData: UserCreateInput) => {
     try {
+        const apiKey = generateRandomAPIKeys()
         const user = await prisma.user.create({
             data: {
                 email: userData.email,
                 name: userData.name,
-                api_key: generateRandomAPIKeys(),
+                api_key: apiKey,
                 planId: userData.planId
             }
         })
+        return user;
     } catch (err) {
         console.log(err)
         return null
