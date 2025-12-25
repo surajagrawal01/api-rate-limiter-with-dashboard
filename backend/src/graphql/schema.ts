@@ -75,7 +75,7 @@ export const typeDefs = `
         id:Int!
         name:String!
         limit:Int!
-        window_seconds:Int
+        window_seconds:Int!
         createdAt:DateTime!
         updatedAt:DateTime!
     }
@@ -97,7 +97,7 @@ export const typeDefs = `
     input CreatePlanInput {
         name: String!
         limit: Int!
-        window_seconds: Int
+        window_seconds: Int!
     } 
 
     type Mutation{

@@ -1,6 +1,6 @@
 import { prisma } from "../db/client"
 import { fetchUserLogs } from "../services/logService"
-import { listAllPlans } from "../services/planService"
+import { createPlan, listAllPlans } from "../services/planService"
 import { getUsageForUser, resetUsageForUser } from "../services/usageService"
 import { createUser, findUserById, rotateUserAPIKey } from "../services/userService"
 
@@ -45,6 +45,20 @@ export const resolvers = {
         rotateUserAPIKey: async (_: any, args: { id: number }) => {
             return rotateUserAPIKey(args?.id)
         },
+        createPlan: async (_: any, args: {
+            input: {
+                name: string,
+                limit: number,
+                window_seconds: number
+            }
+        }) => {
+            const plan = await createPlan({
+                name: args?.input?.name,
+                limit: args?.input?.limit,
+                window_seconds: args?.input?.window_seconds
+            })
+            return plan;
+        }
     },
     User: {
         logs: (parent: { id: number }) =>
