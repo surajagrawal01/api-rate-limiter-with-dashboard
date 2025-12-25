@@ -1,4 +1,5 @@
 import { prisma } from "../db/client";
+import { findUserById } from "./userService";
 
 type UsageData = {
     userId: number,
@@ -58,8 +59,19 @@ export const increaseUsageForUser = async (userId: number) => {
     }
 }
 
-export const resetUsageForUser = async (userId: number) => {
+export const resetUsageForUser = async (userId: number, windowSeconds?: number) => {
     try {
+        const date = new Date()
+        let user
+        if (!windowSeconds) {
+            user = await findUserById({ id: userId })
+        }
+        const windowTime =
+            windowSeconds ?? user?.plan?.window_seconds;
+
+        if (windowTime == null) {
+            throw new Error("windowSeconds or plan.window_seconds must be provided");
+        }
         const usage = await prisma.usage.update({
             where: {
                 userId: userId
@@ -67,7 +79,9 @@ export const resetUsageForUser = async (userId: number) => {
             data: {
                 used: {
                     set: 0
-                }
+                },
+                window_start: new Date(),
+                window_end: new Date(date.setTime(date.getTime() + (windowTime * 1000))),
             }
         })
         return usage;
