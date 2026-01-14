@@ -46,3 +46,17 @@ export const listAllPlans = async () => {
         return null
     }
 }
+
+export const listAllPlansWithUserDetails = async () => {
+    try {
+        const plans = await prisma.plan.findMany({
+            include: {
+                users: true
+            }
+        })
+        return plans;
+    } catch (err) {
+        console.log(err)
+        return null
+    }
+}

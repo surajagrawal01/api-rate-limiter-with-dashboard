@@ -29,14 +29,14 @@ import { DateTimeTypeDefinition } from 'graphql-scalars'
 export const typeDefs = `
     ${DateTimeTypeDefinition}
 
-    type Plan {
+    type PlanWithUser{
         id:Int!
         name:String!
-        window_second:Int!
+        window_seconds:Int!
         createdAt:DateTime!
         updatedAt:DateTime!
         limit:Int!
-
+        users:[User]
     }
 
     type Usage {
@@ -86,6 +86,7 @@ export const typeDefs = `
         getPlans: [Plan!]!
         getUsage(id:Int!):Usage!
         getLogs(id:Int!):[Log!]!
+        getPlansWithUserDetails:[PlanWithUser!]!
     }
 
     input CreateUserInput {
