@@ -1,6 +1,6 @@
 import { prisma } from "../db/client"
 import { fetchUserLogs } from "../services/logService"
-import { createPlan, listAllPlans } from "../services/planService"
+import { createPlan, listAllPlans, listAllPlansWithUserDetails } from "../services/planService"
 import { getUsageForUser, resetUsageForUser } from "../services/usageService"
 import { createUser, findUserById, rotateUserAPIKey } from "../services/userService"
 
@@ -23,6 +23,11 @@ export const resolvers = {
         getLogs: async (_: any, args: { id: number }) => {
             return await fetchUserLogs(args?.id)
         },
+        getPlansWithUserDetails: async () => {
+            const plansWithUsers = await listAllPlansWithUserDetails();
+            return plansWithUsers;
+        }
+
     },
     Mutation: {
         createUser: async (_: any, args: {
