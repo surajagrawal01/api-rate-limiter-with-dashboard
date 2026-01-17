@@ -21,7 +21,6 @@ export function AppDialog({
     title,
     description,
     children,
-    footer,
 }: AppDialogProps) {
     return (
         <Dialog>

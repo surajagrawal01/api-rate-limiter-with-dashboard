@@ -8,7 +8,7 @@ export interface Plan {
     name: string;
     window_seconds: number;
     limit: number;
-    createdAt: string;   // ISO string
-    updatedAt: string;   // ISO string
+    createdAt?: string;   // ISO string
+    updatedAt?: string;   // ISO string
     users: User[];
 }
