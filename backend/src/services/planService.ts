@@ -60,3 +60,16 @@ export const listAllPlansWithUserDetails = async () => {
         return null
     }
 }
+
+export const deletePlan = async (planId: number) => {
+    try {
+        const plan = await prisma.plan.delete({
+            where: { id: planId }
+        })
+        if (plan) return plan;
+        return null;
+    } catch (err) {
+        console.log(err)
+        return null
+    }
+}

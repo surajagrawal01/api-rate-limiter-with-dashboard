@@ -106,5 +106,6 @@ export const typeDefs = `
         resetUsage(id:Int!):Usage!
         rotateUserAPIKey(id:Int!):User!
         createPlan(input:CreatePlanInput!):Plan!
+        deletePlan(id:Int!):Plan!
     }
 `

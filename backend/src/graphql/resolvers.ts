@@ -1,6 +1,6 @@
 import { prisma } from "../db/client"
 import { fetchUserLogs } from "../services/logService"
-import { createPlan, listAllPlans, listAllPlansWithUserDetails } from "../services/planService"
+import { createPlan, listAllPlans, listAllPlansWithUserDetails, deletePlan } from "../services/planService"
 import { getUsageForUser, resetUsageForUser } from "../services/usageService"
 import { createUser, findUserById, rotateUserAPIKey } from "../services/userService"
 
@@ -63,7 +63,10 @@ export const resolvers = {
                 window_seconds: args?.input?.window_seconds
             })
             return plan;
-        }
+        },
+        deletePlan: async (_: any, args: { id: number }) => {
+            return deletePlan(args?.id)
+        },
     },
     User: {
         logs: (parent: { id: number }) =>
