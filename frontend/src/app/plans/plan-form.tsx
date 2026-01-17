@@ -2,6 +2,8 @@
 import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { PartialPlanType } from "@/graphql/types";
+import { PlanService } from "@/services/plan.service";
 import { Plan } from "@/types/plan";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { Label } from "@radix-ui/react-dropdown-menu";
@@ -11,7 +13,11 @@ type FormValues = Pick<Plan, "name" | "window_seconds" | "limit">
 
 type FormErrors = Partial<Record<keyof FormValues, string>>
 
-export function PlanForm() {
+type PlanFormPropsType = {
+    addData: (plan: PartialPlanType) => void
+}
+
+export function PlanForm({ addData }: PlanFormPropsType) {
 
     const [form, setForm] = useState<FormValues>({
         name: '',
@@ -91,20 +97,29 @@ export function PlanForm() {
         })
     }
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        try {
+            e.preventDefault()
 
+            const validationErrors = validateForm();
+            setErrors(validationErrors);
 
-        const validationErrors = validateForm();
-        setErrors(validationErrors);
+            if (Object.keys(validationErrors).length > 0) {
+                return;
+            }
 
-        if (Object.keys(validationErrors).length > 0) {
-            return;
+            const data = await PlanService?.createPlan(
+                {
+                    name: form?.name,
+                    window_seconds: Number(form?.window_seconds),
+                    limit: Number(form?.limit)
+                }
+            )
+            addData(data?.createPlan)
+            resetForm()
+        } catch (err) {
+            console.log(err)
         }
-
-        console.log("Form Submitted", form)
-        resetForm()
-
     }
 
     return (
