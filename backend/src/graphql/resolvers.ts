@@ -7,7 +7,12 @@ import { createUser, findUserById, rotateUserAPIKey } from "../services/userServ
 export const resolvers = {
     Query: {
         getUsers: async () => {
-            const users = await prisma.user.findMany()
+            const users = await prisma.user.findMany({
+                include: {
+                    plan: true,
+                    usages: true
+                }
+            })
             return users
         },
         getUserById: async (_: any, args: { id: number }) => {

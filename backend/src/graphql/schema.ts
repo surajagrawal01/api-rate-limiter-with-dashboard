@@ -69,6 +69,7 @@ export const typeDefs = `
         logs:[Log!]
         createdAt:DateTime!
         updatedAT:DateTime!
+        plan:Plan!
     }
 
     type Plan{

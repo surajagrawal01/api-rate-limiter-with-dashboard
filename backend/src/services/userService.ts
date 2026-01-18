@@ -57,6 +57,9 @@ export const createUser = async (userData: UserCreateInput) => {
                 name: userData.name,
                 api_key: apiKey,
                 planId: userData.planId
+            },
+            include: {
+                plan: true
             }
         })
         return user;
