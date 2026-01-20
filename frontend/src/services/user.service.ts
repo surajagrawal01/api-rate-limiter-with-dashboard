@@ -1,6 +1,5 @@
 import { graphqlClient } from "@/graphql/client";
-import { RESET_USER_API_KEY } from "@/graphql/mutation/plan.mutation";
-import { CREATE_USER } from "@/graphql/mutation/user.mutation";
+import { CREATE_USER, RESET_USER_API_KEY } from "@/graphql/mutation/user.mutation";
 import { GET_USERS } from "@/graphql/queries/user.queries";
 import { CreateUserResponse, GetUsersResponse, ResetUserAPIKeyResponse } from "@/graphql/types";
 

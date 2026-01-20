@@ -24,3 +24,9 @@ export type CreateUserResponse = {
 export type ResetUserAPIKeyResponse = {
     rotateUserAPIKey: Boolean
 }
+
+export type ResetUsageForUser = {
+    resetUsage: {
+        userId: number,
+    }
+}
