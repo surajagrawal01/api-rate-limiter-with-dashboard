@@ -8,3 +8,9 @@ export const CREATE_USER = `
     }
   }
 `;
+
+export const RESET_USER_API_KEY = `
+  mutation RotateUserAPIKey($userId: Int!) {
+  rotateUserAPIKey(id: $userId)
+  }
+`;

@@ -20,3 +20,7 @@ export type GetUsersResponse = {
 export type CreateUserResponse = {
     createUser: User
 }
+
+export type ResetUserAPIKeyResponse = {
+    rotateUserAPIKey: Boolean
+}
