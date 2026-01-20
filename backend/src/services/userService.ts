@@ -78,7 +78,8 @@ export const rotateUserAPIKey = async (userId: number) => {
                 plan: true
             }
         })
-        return user;
+        if (user) return true;
+        return false;
     } catch (err) {
         console.log(err)
         return null

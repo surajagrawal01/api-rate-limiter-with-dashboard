@@ -105,7 +105,7 @@ export const typeDefs = `
     type Mutation{
         createUser(input:CreateUserInput!):User!
         resetUsage(id:Int!):Usage!
-        rotateUserAPIKey(id:Int!):User!
+        rotateUserAPIKey(id:Int!):Boolean!
         createPlan(input:CreatePlanInput!):Plan!
         deletePlan(id:Int!):Plan!
     }
